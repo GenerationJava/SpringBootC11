@@ -19,6 +19,10 @@ public class Usuario {
     @Column(name = "fecha_registro")
     private LocalDateTime fechaCreacion;
 
+    //Represento la relación desde la otra entidad
+    @OneToOne(mappedBy = "usuarioId")
+    private Perfil perfilUsuario;
+
     //Constructores
     public Usuario(long id, String nombre, String apellido, String correo, String password, LocalDateTime fechaCreacion) {
         this.id = id;

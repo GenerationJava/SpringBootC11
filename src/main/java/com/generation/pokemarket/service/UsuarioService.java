@@ -17,4 +17,8 @@ public class UsuarioService {
         return usuarioRepository.getReferenceById(id);
     }
 
+    public Usuario obtenerUsuarioPorNombre(String nombre) {
+        return usuarioRepository.findByNombre(nombre);
+    }
+
 }
