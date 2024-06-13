@@ -2,6 +2,8 @@ package com.generation.pokemarket.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 //Entity indica que va a ser una entidad a representarse en la BBDD
 @Entity
 //Table me permite cambiar el nombre a la tabla
@@ -17,6 +19,16 @@ public class MetodoPago {
     //Column permite cambiar el nombre de la columna y añadirle restricciones
     @Column(name = "metodo")
     private String nombreMetodo;
+
+    //ManyToOne indica que muchos métodos de pago pueden pertenecer a un usuario, creo la variable Usuario
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    //OneToMany para indicar que un metodo de pago está asociado a varios pedidos
+    @OneToMany(mappedBy = "metodoPagoPedido")
+    private List<MetodoPago> pedidosMetodo;
+
 
     //Constructores
     public MetodoPago() {

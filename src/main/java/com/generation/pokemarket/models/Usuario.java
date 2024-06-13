@@ -1,8 +1,10 @@
 package com.generation.pokemarket.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -22,6 +24,19 @@ public class Usuario {
     //Represento la relación desde la otra entidad
     @OneToOne(mappedBy = "usuarioId")
     private Perfil perfilUsuario;
+
+    //OneToMany indica que un usuario tiene muchos métodos de pago, creo una variable List de métodos de pago
+    //MappedBy
+    @OneToMany(mappedBy = "usuario")
+    private List<MetodoPago> metodosPagoUsuario;
+
+    @OneToMany(mappedBy = "usuarioPedido")
+    private List<Pedido> pedidosUsuario;
+
+    @CreationTimestamp
+    private LocalDateTime fechaPedido;
+
+
 
     //Constructores
     public Usuario(long id, String nombre, String apellido, String correo, String password, LocalDateTime fechaCreacion) {

@@ -1,5 +1,6 @@
 package com.generation.pokemarket.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "productos")
@@ -36,5 +38,15 @@ public class Producto {
     //Anotación para indicar que este campo va a registrar la fecha de creación de el objeto
     @CreationTimestamp
     private LocalDateTime fechaCreacion;
+
+    //ManyToMany crea una tabla relacional o tabla intermedia
+    @ManyToMany()
+    //JoinTable para indicar los datos de la tabla
+    @JoinTable(name = "productos_pedido",
+    //La columna que lleva la llave foránea de la tabla actual (productos)
+    joinColumns = @JoinColumn(name = "producto_id"),
+    //La columna inversa que lleva la llave foránea de la otra tabla (pedidos)
+    inverseJoinColumns = @JoinColumn(name = "pedido_id"))
+    private List<Pedido> productoPedidos;
 
 }
