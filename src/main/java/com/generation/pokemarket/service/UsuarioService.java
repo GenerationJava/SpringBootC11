@@ -51,4 +51,19 @@ public class UsuarioService {
 
         return nuevoUsuario;
     }
+
+    @Transactional
+    public UsuarioDTO editarUsuarioPorCorreo(UsuarioDTO usuarioEditado, String correo) {
+        //Buscamos al usuario a través del correo
+        Usuario usuarioActualizar = usuarioRepository.findByCorreo(correo);
+        //Seteamos los campos tomando en cuenta lo que viene en el DTO
+        usuarioActualizar.setNombre(usuarioEditado.getNombreUsuario());
+        usuarioActualizar.setApellido(usuarioEditado.getApellidoUsuario());
+        usuarioActualizar.setCorreo(usuarioEditado.getCorreoUsuario());
+        //Para setear el rol, llamamos al método en rol repository y buscamos el rol por nombre
+        usuarioActualizar.setRolUsuario(rolRepository.findRolByNombreRol(usuarioEditado.getNombreRol()));
+        //Finalmente, guardamos los cambios con el metodo save en usuarioRepository
+        usuarioRepository.save(usuarioActualizar);
+        return usuarioEditado;
+    }
 }

@@ -18,7 +18,7 @@ public class UsuarioDTO {
     private String apellidoUsuario;
 
     @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",
-            flags = Pattern.Flag.CASE_INSENSITIVE)//Solución al . y a otros caracteres especiales att:Benja
+    flags = Pattern.Flag.CASE_INSENSITIVE)//Solución al . y a otros caracteres especiales att:Benja
     private String correoUsuario;
 
     @NotBlank

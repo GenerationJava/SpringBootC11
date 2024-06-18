@@ -45,13 +45,25 @@ public class UsuarioController {
 
     @PostMapping("/nuevo")
     public ResponseEntity<?> guardarUsuario(@RequestBody @Valid UsuarioDTO nuevoUsuario, BindingResult result){
+        //System.out.println(nuevoUsuario.getNombreUsuario());
+        //System.out.println(nuevoUsuario.getCorreoUsuario());
         if (result.hasErrors()) {
             return new ResponseEntity<>("Verifique los campos", HttpStatus.NOT_ACCEPTABLE);
         }
         //Usuario usuarioGuardado = usuarioService.guardarNuevoUsuario(nuevousuario);
 
         return new ResponseEntity<>(usuarioService.guardarNuevoUsuario(nuevoUsuario), HttpStatus.CREATED);
+    }
 
+    @PutMapping("/editar/{correo}")
+    public ResponseEntity<?> editarUsuarioPorCorreo(@PathVariable String correo,
+                                                    @RequestBody @Valid UsuarioDTO usuarioParaEditar,
+                                                    BindingResult result) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>("Verifica los campos antes de editar", HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>(usuarioService.editarUsuarioPorCorreo(usuarioParaEditar, correo),
+                HttpStatus.OK);
     }
 
 
