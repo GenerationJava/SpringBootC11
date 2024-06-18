@@ -27,7 +27,7 @@ public class MetodoPago {
 
     //OneToMany para indicar que un metodo de pago está asociado a varios pedidos
     @OneToMany(mappedBy = "metodoPagoPedido")
-    private List<MetodoPago> pedidosMetodo;
+    private List<Pedido> pedidosMetodo;
 
 
     //Constructores

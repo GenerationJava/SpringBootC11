@@ -1,12 +1,17 @@
 package com.generation.pokemarket.controller;
 
+import com.generation.pokemarket.dto.UsuarioDTO;
+import com.generation.pokemarket.models.Producto;
 import com.generation.pokemarket.models.Usuario;
 import com.generation.pokemarket.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 //RestController se usa para indicar que sigue el patrón REST, estado representacional en formato JSON
 @RestController
@@ -16,6 +21,11 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @GetMapping("/lista")
+    public List<Usuario> getListaUsuarios() {
+        return usuarioService.obtenerListaDeUsuarios();
+    }
 
     //Método a ejecutarse al momento de ingresar a la ruta
     @GetMapping("/")
@@ -31,6 +41,17 @@ public class UsuarioController {
                 + usuarioSolicitado.getNombre()
                 + " "
                 + usuarioSolicitado.getApellido();
+    }
+
+    @PostMapping("/nuevo")
+    public ResponseEntity<?> guardarUsuario(@RequestBody @Valid UsuarioDTO nuevoUsuario, BindingResult result){
+        if (result.hasErrors()) {
+            return new ResponseEntity<>("Verifique los campos", HttpStatus.NOT_ACCEPTABLE);
+        }
+        //Usuario usuarioGuardado = usuarioService.guardarNuevoUsuario(nuevousuario);
+
+        return new ResponseEntity<>(usuarioService.guardarNuevoUsuario(nuevoUsuario), HttpStatus.CREATED);
+
     }
 
 

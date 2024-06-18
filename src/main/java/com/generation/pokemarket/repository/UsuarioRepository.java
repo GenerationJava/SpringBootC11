@@ -10,4 +10,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     //JpaRepository hereda de PagingAndSorting y de CrudRepository, interfaces que tienen métodos para hacer el crud
 
     Usuario findByNombre(String nombre);
+
 }

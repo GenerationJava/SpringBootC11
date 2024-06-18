@@ -1,25 +1,41 @@
 package com.generation.pokemarket.models;
 
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 
 @Entity
 @Table(name = "usuarios")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder//Método Builder que nos da otra sintaxis para la construcción del objeto
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nombre;
+
     private String apellido;
+
     private String correo;
+
     private String password;
+
+    @CreationTimestamp
     @Column(name = "fecha_registro")
     private LocalDateTime fechaCreacion;
+
+    @ManyToOne
+    @JoinColumn(name = "rol_id")
+    private Rol rolUsuario;
 
     //Represento la relación desde la otra entidad
     @OneToOne(mappedBy = "usuarioId")
@@ -33,11 +49,8 @@ public class Usuario {
     @OneToMany(mappedBy = "usuarioPedido")
     private List<Pedido> pedidosUsuario;
 
-    @CreationTimestamp
-    private LocalDateTime fechaPedido;
 
-
-
+    /*
     //Constructores
     public Usuario(long id, String nombre, String apellido, String correo, String password, LocalDateTime fechaCreacion) {
         this.id = id;
@@ -99,4 +112,6 @@ public class Usuario {
     public void setFechaCreacion(LocalDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
+
+     */
 }
