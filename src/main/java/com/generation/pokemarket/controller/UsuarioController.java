@@ -66,6 +66,29 @@ public class UsuarioController {
                 HttpStatus.OK);
     }
 
+    @DeleteMapping("/borrar")
+    public ResponseEntity<?> borrarPorId(@RequestParam Long id) {
+        //LLamamos al service y al método de borrar por Id
+        usuarioService.borrarUsuarioPorId(id);
+        //Retornamos un string en el cuerpo de la respuesta
+        return new ResponseEntity<>("Usuario borrado exitosamente", HttpStatus.OK);
+    }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<?> buscarPorApellidoNombre(@RequestParam String apellido,
+                                                     @RequestParam String nombre) {
+        return new ResponseEntity<>(usuarioService.
+                buscarUsuarioPorApellidoNombre(apellido, nombre),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/patron")
+    public ResponseEntity<?> buscarPorPatron(@RequestParam String patron) {
+        return new ResponseEntity<>(usuarioService.buscarUsuariosPorPatron(patron),
+                HttpStatus.OK);
+    }
+
+
 
 
 }

@@ -66,4 +66,28 @@ public class UsuarioService {
         usuarioRepository.save(usuarioActualizar);
         return usuarioEditado;
     }
+
+    @Transactional
+    public void borrarUsuarioPorId(Long id) {
+        //Validamos que el usuario exista en la BBDD
+        if (usuarioRepository.existsById(id)) {
+            //Accedemos al método deleteById de JPA repository
+            usuarioRepository.deleteById(id);
+        }
+        System.out.println("Usuario no existe");
+    }
+
+    public UsuarioDTO buscarUsuarioPorApellidoNombre(String apellido, String nombre) {
+        //Llamamos al método que tiene la query en el repository, para buscar por apellido y nombre
+        Usuario usuarioSeleccionado = usuarioRepository.encontrarPorApellidoNombre(apellido, nombre);
+        //Creamos una nueva instancia de UsusarioDTO y le seteamos los campos necesarios
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.setNombreUsuario(usuarioSeleccionado.getNombre());
+        usuarioDTO.setApellidoUsuario(usuarioSeleccionado.getApellido());
+        return usuarioDTO;
+    }
+
+    public List<Usuario> buscarUsuariosPorPatron(String patron) {
+        return usuarioRepository.encontrarPorPatronNombre(patron);
+    }
 }

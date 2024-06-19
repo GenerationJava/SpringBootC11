@@ -1,10 +1,14 @@
 package com.generation.pokemarket.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "pedidos")
@@ -31,4 +35,7 @@ public class Pedido {
     @JoinColumn(name = "usuario_id")
     private Usuario usuarioPedido;
 
+    @JsonFormat(pattern = "dd.MM.YYYY")
+    @CreationTimestamp()
+    private LocalDateTime fechaPedido;
 }

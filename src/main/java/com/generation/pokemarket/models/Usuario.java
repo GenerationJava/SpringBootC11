@@ -1,5 +1,6 @@
 package com.generation.pokemarket.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -43,9 +44,11 @@ public class Usuario {
 
     //OneToMany indica que un usuario tiene muchos métodos de pago, creo una variable List de métodos de pago
     //MappedBy
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario")
     private List<MetodoPago> metodosPagoUsuario;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "usuarioPedido")
     private List<Pedido> pedidosUsuario;
 
