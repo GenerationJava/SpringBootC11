@@ -81,9 +81,9 @@ public class UsuarioService {
         //Llamamos al método que tiene la query en el repository, para buscar por apellido y nombre
         Usuario usuarioSeleccionado = usuarioRepository.encontrarPorApellidoNombre(apellido, nombre);
         //Creamos una nueva instancia de UsusarioDTO y le seteamos los campos necesarios
-        UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.setNombreUsuario(usuarioSeleccionado.getNombre());
-        usuarioDTO.setApellidoUsuario(usuarioSeleccionado.getApellido());
+        UsuarioDTO usuarioDTO = UsuarioDTO.builder()
+                .nombreUsuario(usuarioSeleccionado.getNombre())
+                .apellidoUsuario(usuarioSeleccionado.getApellido()).build();
         return usuarioDTO;
     }
 

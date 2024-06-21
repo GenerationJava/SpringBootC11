@@ -2,9 +2,11 @@ package com.generation.pokemarket.dto;
 
 import com.generation.pokemarket.models.ERol;
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 //DTO de usuario es un objeto o representación del objeto usuario, con la finalidad de transferir los datos importantes
 public class UsuarioDTO {
 
